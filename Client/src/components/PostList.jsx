@@ -25,7 +25,7 @@ const PostList = () => {
   return (
     <>
       <div className="my-8">
-        <h2 className="text-2xl mb-4">Posts</h2>
+        <h2 className="text-2xl mb-4">{posts.length} Posts</h2>
 
         {posts.map((post) => (
           <div
