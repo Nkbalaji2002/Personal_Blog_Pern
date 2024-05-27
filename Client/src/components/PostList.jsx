@@ -25,7 +25,11 @@ const PostList = () => {
   return (
     <>
       <div className="my-8">
-        <h2 className="text-2xl mb-4">{posts.length} Posts</h2>
+        <h2 className={`text-2xl mb-4 ${posts.length === 0 && "text-center"}`}>
+          {posts.length > 0
+            ? `${posts.length} Posts`
+            : `${posts.length} Posts Found`}
+        </h2>
 
         {posts.map((post) => (
           <div
