@@ -5,6 +5,7 @@ const PostForm = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [error, setError] = useState("");
+  const [error2, setError2] = useState("");
   const { createPost, UpdatePost, selectedPost, setSelectedPost } = useBlog();
 
   useEffect(() => {
@@ -26,7 +27,7 @@ const PostForm = () => {
     }
 
     if (!content) {
-      setError("Please add a content field");
+      setError2("Please add a content field");
       return;
     }
 
@@ -49,7 +50,7 @@ const PostForm = () => {
 
   const handleContentChange = (e) => {
     setContent(e.target.value);
-    setError("");
+    setError2("");
   };
 
   const handleCancel = () => {
@@ -82,6 +83,9 @@ const PostForm = () => {
             />
           </div>
 
+          {/* Error Messages */}
+          {error && <p className="text-red-500 mb-3">{error}</p>}
+
           {/* content */}
           <div className="mb-3">
             <label htmlFor="content" className="block text-gray-700 rounded">
@@ -98,7 +102,7 @@ const PostForm = () => {
           </div>
 
           {/* Error Messages */}
-          {error && <p className="text-red-500 mb-3">{error}</p>}
+          {error2 && <p className="text-red-500 mb-3">{error2}</p>}
 
           {/* Submit or Cancel Buttons */}
           <div className="flex space-x-4">
