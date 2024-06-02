@@ -4,6 +4,7 @@ import { useBlog } from "../context/Blog.context";
 const PostForm = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [error, setError] = useState("");
   const { createPost, UpdatePost, selectedPost, setSelectedPost } = useBlog();
 
   useEffect(() => {
@@ -19,6 +20,16 @@ const PostForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (!title) {
+      setError("Please add a title field");
+      return;
+    }
+
+    if (!content) {
+      setError("Please add a content field");
+      return;
+    }
+
     if (selectedPost) {
       const res = await UpdatePost(selectedPost.id, title, content);
       setSelectedPost(null);
@@ -33,10 +44,12 @@ const PostForm = () => {
 
   const handleTitleChange = (e) => {
     setTitle(e.target.value);
+    setError("");
   };
 
   const handleContentChange = (e) => {
     setContent(e.target.value);
+    setError("");
   };
 
   const handleCancel = () => {
@@ -54,7 +67,7 @@ const PostForm = () => {
 
         <form onSubmit={handleSubmit}>
           {/* title */}
-          <div className="mb-4">
+          <div className="mb-3">
             <label htmlFor="title" className="block text-gray-700 rounded">
               Title
             </label>
@@ -66,12 +79,11 @@ const PostForm = () => {
               placeholder="Enter the Title"
               value={title}
               onChange={handleTitleChange}
-              required
             />
           </div>
 
           {/* content */}
-          <div className="mb-4">
+          <div className="mb-3">
             <label htmlFor="content" className="block text-gray-700 rounded">
               Content
             </label>
@@ -82,9 +94,11 @@ const PostForm = () => {
               placeholder="Enter the Content"
               value={content}
               onChange={handleContentChange}
-              required
             ></textarea>
           </div>
+
+          {/* Error Messages */}
+          {error && <p className="text-red-500 mb-3">{error}</p>}
 
           {/* Submit or Cancel Buttons */}
           <div className="flex space-x-4">
